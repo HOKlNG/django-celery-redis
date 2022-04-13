@@ -18,3 +18,5 @@
 - settings에 user세팅
 - python manage.py makemigrations
 - python manage.py migrate
+
+2. 회원가입 기능
