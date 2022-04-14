@@ -41,21 +41,21 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        verbose_name=_('Email address'),
+        verbose_name=_('이메일'),
         max_length=255,
         unique=True,
     )
     nickname = models.CharField(
-        verbose_name=_('Nickname'),
+        verbose_name=_('닉네임'),
         max_length=30,
-        unique=True
+        unique=False
     )
     is_active = models.BooleanField(
-        verbose_name=_('Is active'),
+        verbose_name=_('활성화'),
         default=True
     )
     date_joined = models.DateTimeField(
-        verbose_name=_('Date joined'),
+        verbose_name=_('가입일'),
         default=timezone.now
     )
 
@@ -81,7 +81,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        # Simplest possible answer: All superusers are staff
         return self.is_superuser
 
     get_full_name.short_description = _('Full name')
