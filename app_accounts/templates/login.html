@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="section">
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="login_box" style="_display: none">
+                <div class="login_box_title">로그인</div>
+
+                <div class="">
+                    <div class="">
+                        <div class="">이메일</div>
+                        {%  if form.email.errors %}
+                        <div class="">{{form.email}}</div>
+                        <div class="">
+                            <div class="">
+                                <span class="">{{form.username.errors}}</span><br>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="">
+                            {{form.email}}
+                        </div>
+                        {%  endif %}
+                    </div>
+                    <div>
+                        <div class="">비밀번호</div>
+                        {%  if form.password.errors %}
+                        <div class="">{{form.password}}</div>
+                        <div class="">
+                            <div class="">
+                                <span class="">{{form.password.errors}}</span><br>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="">
+                            {{form.password}}
+                        </div>
+                        {%  endif %}
+                    </div>
+                </div>
+                <div class="">
+                    <button type="submit" id="loginButton" class="">로그인</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
