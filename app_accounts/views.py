@@ -14,14 +14,14 @@ def index(request):
 
 # 회원가입
 class CreateAccounts(CreateView):
-    template_name = 'signup.html'
+    template_name = 'register.html'
     form_class = UserForm
-    success_url = '/accounts'
+    success_url = '/accounts/signin'
 
 #로그인 페이지
 class LoginPage(FormView):
     # 로그인 페이지 View
-    template_name = 'accounts/login.html'
+    template_name = 'login.html'
     form_class = LoginForm
     success_url = reverse_lazy('accounts_main')
 
@@ -38,11 +38,11 @@ class LoginView(View):
             pass
         #로그인
         login(request, user)
-        return JsonResponse({'msg':'success signin'}, status=200)
+        return redirect('/main')
 
 class LogOutView(View):
 
     def get(self, request):
         logout(request)
         request.session.pop('login', None)
-        return redirect('/')
+        return redirect('/accounts/signin')
