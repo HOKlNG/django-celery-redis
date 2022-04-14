@@ -52,7 +52,7 @@ class LoginForm(forms.Form):
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
-                self.add_error('user_id', '아이디가 없습니다.')
+                self.add_error('email', '아이디가 없습니다.')
                 return
 
             if not check_password(password, user.password):
