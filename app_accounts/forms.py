@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.auth.hashers import check_password
+
 from app_accounts.models import User
-from django.contrib.auth.hashers import check_password, make_password
 
 
 class UserForm(forms.ModelForm):
@@ -22,12 +23,6 @@ class UserForm(forms.ModelForm):
 
         return cleaned_data
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
-        return user
 
 class LoginForm(forms.Form):
 

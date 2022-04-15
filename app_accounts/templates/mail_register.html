@@ -1,0 +1,17 @@
+{% if user.is_active %}
+    <h3>계정이 활성화 되었습니다.</h3>
+    <script language="javascript">
+        setTimeout(function () {
+            window.close()
+        }, 2000);
+    </script>
+{% else %}
+
+<table border="0" width="671" background="">
+  <tr>
+    <td align="center" style="padding-bottom: 20px;">
+      <a target="_blank" href="http://{{ domain }}{% url 'activate' %}?uidb64={{ kwargs.uid }}&token={{ kwargs.token }}&time={{ kwargs.time }}" style="line-height: 50px; font-family: Dotum;color: #fff;font-size: 16px; font-weight: 500; width: 212px;height: 50px; background: #614ED0; display: block; text-decoration: none;">이메일 인증</a>
+    </td>
+  </tr>
+</table>
+{% endif %}
