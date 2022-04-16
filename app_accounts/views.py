@@ -34,7 +34,7 @@ class CreateAccounts(FormView):
         user.save()
 
         #회원 가입 이메일 전송송
-        task_send_register_mail(user, get_current_site(self.request).__str__())
+        task_send_register_mail.delay(user.pk, get_current_site(self.request).__str__())
 
         return super().form_valid(form)
 

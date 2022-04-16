@@ -2,7 +2,10 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
+from celery import shared_task
+
 from config.settings import DEFAULT_FROM_EMAIL
+
 import time
 from datetime import datetime
 from app_accounts.models import User
@@ -10,10 +13,10 @@ from app_accounts.tokens import activate_token
 
 from django.conf import settings
 
-
-def task_send_register_mail(user, domain):
+@shared_task
+def task_send_register_mail(user_id, domain):
     try:
-
+        user = User.objects.get(pk=user_id)
         template = 'mail_register.html'
         now_time = time.mktime(datetime.now().timetuple())
 
@@ -36,4 +39,4 @@ def task_send_register_mail(user, domain):
         email.send()
 
     except User.DoesNotExist as e:
-        print('email send error')
+        task_send_register_mail.retry(countdown=1)
